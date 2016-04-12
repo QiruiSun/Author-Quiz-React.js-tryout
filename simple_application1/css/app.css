@@ -1,0 +1,41 @@
+.answer {
+    padding-left: 1em;
+    background: lightblue;
+    height: 3em;
+    position: relative;
+    border-left: 10px solid black;
+    width: 70%;
+    text-align: center;
+    margin: 13px;
+}
+
+.answer:hover{
+  background-color: red;
+}
+.answer h4 {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.fail {
+  background-color: red;
+}
+.col-md-1.fail {
+    height: 114px;
+    margin-top: 70px;
+}
+.col-md-1.pass {
+    height: 114px;
+    margin-top: 70px;
+}
+.pass {
+  background-color: green;
+}
+input.btn.btn-primary {
+    font-size: 2em;
+}
+.col-md-12 {
+  text-align: center;
+  margin-top: 50px;
+}
