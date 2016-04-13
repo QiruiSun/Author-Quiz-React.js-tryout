@@ -10,7 +10,7 @@
 }
 
 .answer:hover{
-  background-color: red;
+  background-color: grey;
 }
 .answer h4 {
     position: absolute;
