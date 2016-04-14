@@ -71,6 +71,16 @@
     });
 
     var AddGameForm = React.createClass({
+      propTypes: {
+         gameFormSubmitted: React.PropTypes.func.isRequired
+      },
+      handleSubmit: function (e) {
+        e.preventDefault();
+          this.props.gameFormSubmitted(getRefs(this));
+          // do not actually submit the form
+          // console.log(data);
+        return false;
+      },
       render: function () {
           return (<div className="row">
                     <div className="col-md-12">
@@ -146,7 +156,7 @@
       return Math.floor(Math.random()*(max-min+1)) + min ;
     }
 
-    data.selectGame = function () {
+    var selectGame = function () {
       var books = shuffle(
         this.reduce(function (x, y) {
           return x.concat(y.books);
@@ -170,7 +180,7 @@
         }
       };
     }
-
+    data.selectGame = selectGame;
     routie({
         " ": function () {
           ReactDOM.render(
@@ -180,10 +190,33 @@
         },
         "add": function () {
           ReactDOM.render(
-            <AddGameForm/>, document.getElementById('app')
-          )
+            <AddGameForm gameFormSubmitted={handleAddGameSubmitted} />, document.getElementById('app')
+          );
         }
 
     });
 
+     function getRefs(component) {
+        var result = {};
+        Object.keys(component.refs).forEach( function (refKey) {
+              result[refKey] = component.refs[refKey].value;
+        });
+        return result;
+    };
+
+    function handleAddGameSubmitted(result) {
+          var quizData = [{
+              imageUrl: result.imageUrl,
+              books: [result.answer1, result.answer2, result.answer3, result.answer4]
+          }];
+          console.log(data);
+          console.log(result);
+          console.log(quizData);
+              // quizData.selectGame();
+          data = data.concat(quizData);
+          console.log(data);
+          // this gives quizData this array a function 
+          quizData.selectGame = selectGame;
+          ReactDOM.render(<Quiz data={quizData} />, document.getElementById('app'));
+    };
 })();
